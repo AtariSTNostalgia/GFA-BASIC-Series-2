@@ -1,11 +1,11 @@
 # GFA-Basic-Series-2
-Here you can find all example code I used in the GFA Basic series 2 of videos on my Atari ST Nostalgia YoutTube channel
+Here you can find all example code I used in the GFA Basic series 2 of videos on my Atari ST Nostalgia YouTube channel
 
 # Usage
 The code is provided as-is for everyone to play around with as they please.
 The code will be posted in .LST format, so you can merge whatever parts you want to use into your existing code.
 The code was mainly written for experimenting, learning, and show-and-tell.
-My goals is to make others enthousiastic about retro-coding using this greatest BASIC interpreter ever made.
+My goal is to make others enthousiastic about retro-coding using this greatest BASIC interpreter ever made.
 
 # GFA BASIC version
 All code was written in GFA BASIC version 3.5 for the Atari ST.
