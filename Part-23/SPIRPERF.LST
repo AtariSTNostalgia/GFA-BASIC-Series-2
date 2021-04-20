@@ -1,0 +1,162 @@
+'
+' *** main program ***
+'
+VOID INP(2)
+@sincos
+'
+' *** procedures ***
+'
+> PROCEDURE sincos
+  CLS
+  PRINT AT(10,1);"SINCOS"
+  time%=TIMER
+  FOR i=0 TO 360
+    x=i+139
+    y=200-180*SIN(i*PI/180)
+    PLOT x,y
+    y2=200-160*COS(i*PI/180)
+    PLOT x,y2
+  NEXT i
+  secs=(TIMER-time%)/200
+  PRINT AT(60,1);secs;" seconds"
+  VOID INP(2)
+  @sincosbetter
+RETURN
+> PROCEDURE sincosbetter
+  CLS
+  PRINT AT(10,1);"SINCOS BETTER"
+  time%=TIMER       ! TIMER = time since system power-up
+  FOR i&=0 TO 360  ! Made i& word instead of float
+    a=RAD(i&)      ! This calculation once, and faster
+    x&=139+i&
+    y&=200-180*SIN(a)
+    PLOT x&,y&
+    y2&=200-160*COS(a)
+    PLOT x&,y2&
+  NEXT i&
+  secs=(TIMER-time%)/200  ! Elapsed time since time=TIMER command
+  PRINT AT(60,1);secs;" seconds"
+  VOID INP(2)
+  @sincosonsteroids
+RETURN
+> PROCEDURE sincosonsteroids
+  CLS
+  PRINT AT(10,1);"SINCOS ON STEROIDS"
+  time%=TIMER
+  FOR i&=0 TO 360
+    x&=139+i&
+    y&=200-180*SINQ(i&) ! Table lookup instead of calculation. Much faster!
+    PLOT x&,y&
+    y2&=200-160*COSQ(i&)
+    PLOT x&,y2&
+  NEXT i&
+  secs=(TIMER-time%)/200
+  PRINT AT(60,1);secs;" seconds"
+  VOID INP(2)
+  @rosettesdumb
+RETURN
+> PROCEDURE rosettesdumb
+  CLS
+  PRINT AT(10,1);"ROSETTES"
+  i=0
+  rb=150            ! Set radius of big circle
+  rs=30             ! Set radius of small circle (between half rb and rb)
+  pen=80            ! Position of the pen.
+  '
+  ' *** start timing from here ***
+  time%=TIMER
+  height=rb-rs
+  ratio=rs/rb
+  t=i*PI/180   ! THESE ARE NOT NEEDED WHEN I KNOW I=0
+  firstx&=height*COS(ratio*t)+pen*COS((1-ratio)*t)
+  firsty&=height*SIN(ratio*t)-pen*SIN((1-ratio)*t)
+  firstxplot&=320+firstx&
+  firstyplot&=200-firsty&
+  '
+  DO
+    '
+    ' *** Check and end if plot is back at start position ***
+    '
+    IF i>359 AND xplot&=firstxplot& AND yplot&=firstyplot&
+      secs=(TIMER-time%)/200
+      PRINT AT(60,1);secs;" seconds"
+      VOID INP(2)
+      @rosettesbetter
+    ENDIF
+    '
+    ' ***  Calculate and plot ***
+    '
+    height=rb-rs  ! <= CALCULATING CONSTANTS WITHIN A LOOP IS DUMB!
+    ratio=rs/rb
+    x&=height*COS(ratio*(i*PI/180))+pen*COS((1-ratio)*(i*PI/180))
+    y&=height*SIN(ratio*(i*PI/180))-pen*SIN((1-ratio)*(i*PI/180))
+    xplot&=320+x&
+    yplot&=200-y&
+    PLOT xplot&,yplot&
+    INC i
+  LOOP
+RETURN
+> PROCEDURE rosettesbetter
+  CLS
+  PRINT AT(10,1);"ROSETTES BETTER"
+  i&=0     ! i& is now word instead of float
+  '
+  ' *** start timing from here ***
+  time%=TIMER
+  firstxplot&=520             ! Constants hard-coded
+  firstyplot&=200
+  '
+  DO
+    '
+    ' *** Check and end if plot is back at start position ***
+    '
+    IF i&>359 AND xplot&=firstxplot& AND yplot&=firstyplot&
+      secs=(TIMER-time%)/200
+      PRINT AT(60,1);secs;" seconds"
+      VOID INP(2)
+      @rosettesonsteroids
+    ENDIF
+    '
+    ' ***  Calculate and plot ***
+    '
+    a=0.2*RAD(i&)           ! Calculate each angle once
+    b=0.8*RAD(i&)
+    '    t=RAD(i&)
+    x&=120*COS(a)+80*COS(b) ! Constants hard coded
+    y&=120*SIN(a)-80*SIN(b)
+    xplot&=320+x&
+    yplot&=200-y&
+    PLOT xplot&,yplot&
+    INC i&
+  LOOP
+RETURN
+> PROCEDURE rosettesonsteroids
+  CLS
+  PRINT AT(10,1);"ROSETTES ON STEROIDS"
+  i&=0
+  '
+  ' *** start timing from here ***
+  time%=TIMER
+  DO
+    '
+    ' *** Check and end if plot is back at start position ***
+    '
+    IF i&>1 AND xplot&=520 AND yplot&=200
+      secs=(TIMER-time%)/200
+      PRINT AT(60,1);secs;" seconds"
+      VOID INP(2)
+      @sincos
+    ENDIF
+    '
+    ' ***  Calculate and plot ***
+    '
+    a=0.2*i&
+    b=0.8*i&
+    x&=120*COSQ(a)+80*COSQ(b) ! Table lookup is faster
+    y&=120*SINQ(a)-80*SINQ(b)
+    xplot&=320+x&
+    yplot&=200-y&
+    PLOT xplot&,yplot&
+    INC i&
+  LOOP
+RETURN

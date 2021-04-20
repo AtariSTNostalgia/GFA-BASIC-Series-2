@@ -1,0 +1,52 @@
+INPUT "How many figures do you want to draw?  ",number&
+CLS
+@drawcircles
+SGET screen1$
+CLS
+@drawboxes
+SGET screen2$
+CLS
+@drawcircles
+SGET screen3$
+CLS
+@drawboxes
+SGET screen4$
+CLS
+@flashscreens
+EDIT
+'
+' *** Procedures ***
+'
+> PROCEDURE drawcircles
+  FOR k&=1 TO number&
+    radius&=25+RANDOM(51)
+    x1&=radius&+RANDOM(640-(2*radius&))
+    y1&=(radius&+16)+RANDOM(400-(2*(radius&+16)))
+    pattern&=1+RANDOM(24)
+    DEFFILL 1,2,pattern&
+    PCIRCLE x1&,y1&,radius&
+  NEXT k&
+RETURN
+> PROCEDURE drawboxes
+  FOR l&=1 TO number&
+    x1&=10+RANDOM(620)
+    y1&=16+RANDOM(369)
+    x2&=10+RANDOM(620)
+    y2&=16+RANDOM(368)
+    pattern&=1+RANDOM(24)
+    DEFFILL 1,2,pattern&
+    PBOX x1&,y1&,x2&,y2&
+  NEXT l&
+RETURN
+> PROCEDURE flashscreens
+  DO UNTIL ASC(INKEY$)=32
+    SPUT screen1$
+    PAUSE 30
+    SPUT screen2$
+    PAUSE 30
+    SPUT screen3$
+    PAUSE 30
+    SPUT screen4$
+    PAUSE 30
+  LOOP
+RETURN

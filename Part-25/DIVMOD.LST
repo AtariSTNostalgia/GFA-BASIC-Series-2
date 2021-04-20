@@ -1,0 +1,55 @@
+'
+' *** Main ***
+'
+@printdivmod
+' @printvertical
+' @printhorizontal
+' @printchars
+' @drawcircles
+EDIT
+'
+' *** procedures ***
+'
+PROCEDURE printdivmod
+  PRINT "I","I DIV 10","I MOD 10"
+  PRINT ""
+  FOR i&=0 TO 20
+    PRINT i&,i& DIV 10,i& MOD 10
+  NEXT i&
+  DEFMOUSE 3
+  SHOWM
+  ~INP(2)
+RETURN
+> PROCEDURE printvertical
+  CLS
+  FOR i&=0 TO 39
+    PRINT AT(((i& DIV 10)*10)+1,(i& MOD 10)+1);i&
+  NEXT i&
+  SHOWM
+  ~INP(2)
+RETURN
+> PROCEDURE printhorizontal
+  CLS
+  FOR i&=0 TO 39
+    PRINT AT(((i& MOD 10)*4)+1,(i& DIV 10)+1);i&
+  NEXT i&
+  SHOWM
+  ~INP(2)
+RETURN
+> PROCEDURE printchars
+  CLS
+  FOR i&=0 TO 255
+    PRINT AT(((i& DIV 24)*7)+1,(i& MOD 24)+1);i&;"=";CHR$(i&)
+  NEXT i&
+  ~INP(2)
+RETURN
+> PROCEDURE drawcircles
+  CLS
+  DEFTEXT 0,0,0,26
+  GRAPHMODE 2
+  FOR i|=0 TO 39
+    PCIRCLE (((i| MOD 8)*80)+40),(((i| DIV 8)*80)+40),40
+    TEXT (((i| MOD 8)*80)+10),(((i| DIV 8)*80)+52),"ST"
+  NEXT i|
+  ~INP(2)
+RETURN

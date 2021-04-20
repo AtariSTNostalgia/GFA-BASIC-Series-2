@@ -1,0 +1,59 @@
+'
+' *** Main code ***
+'
+@main
+'
+' *** Procedures ***
+'
+> PROCEDURE main
+  @setvalues
+  @background
+  @bounce
+RETURN
+> PROCEDURE setvalues
+  CLS
+  INPUT "Enter desired border size: ",b&
+  xmin&=b&                   ! Min and max values should be inside border
+  ymin&=b&
+  xmax&=639-b&
+  ymax&=399-b&
+  x1&=b&+RANDOM(639-2*b&)    ! X and Y start at random spot inside border
+  y1&=b&+RANDOM(399-2*b&)
+  drx1&=1                    ! Values to set direction and step of next X and Y
+  dry1&=1
+  CLS
+RETURN
+> PROCEDURE background
+  DEFFILL 1,4,0
+  PBOX 0,0,639,399
+  DEFFILL 1,0,0
+  PBOX b&-1,b&-1,640-b&,400-b&
+RETURN
+> PROCEDURE bounce
+  GRAPHMODE 1                 ! Back to Graphmode 1
+  DO UNTIL ASC(INKEY$)=32     ! SPACE exits loop as soon as dot hits border
+    WHILE x1&<=xmax& AND x1&>=xmin& AND y1&<=ymax& AND y1&>=ymin&
+      PLOT x1&,y1&            ! Plot WHILE X and Y are both inside border
+      ADD x1&,drx1&
+      ADD y1&,dry1&
+    WEND                      ! Otherwise, END this loop
+    IF x1&>xmax& OR x1&<xmin&
+      MUL drx1&,-1            ! If X was outside border, flip direction
+      ADD x1&,2*drx1&         ! Correct X so we don't plot same X twice
+    ENDIF
+    IF y1&>ymax& OR y1&<ymin&
+      MUL dry1&,-1
+      ADD y1&,2*dry1&
+    ENDIF
+  LOOP
+  @quit
+RETURN
+> PROCEDURE quit
+  ALERT 3,"|     Stop or go again?     ",1,"Stop|Go again",quit|
+  SELECT quit|
+  CASE 1
+    END
+  CASE 2
+    @main
+  ENDSELECT
+RETURN

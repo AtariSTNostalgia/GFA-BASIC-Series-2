@@ -1,0 +1,24 @@
+REPEAT
+  MOUSE oldx&,oldy&,button&
+UNTIL button&=1
+'
+DEFMOUSE 3
+DO
+  MOUSE newx&,newy&,button&
+  COLOR 1
+  DRAW oldx&,oldy& TO newx&,newy&
+  COLOR 0
+  DRAW oldx&,oldy& TO newx&,newy&
+  SELECT button&
+  CASE 1
+    COLOR 1
+    DRAW oldx&,oldy& TO newx&,newy&
+    oldx&=newx&
+    oldy&=newy&
+    REPEAT
+      MOUSE x&,y&,button&
+    UNTIL button&=0
+  CASE 2
+    EDIT
+  ENDSELECT
+LOOP

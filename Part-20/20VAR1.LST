@@ -1,0 +1,10 @@
+DO UNTIL ASC(INKEY$)=32
+  angle=i%/57.3
+  x=COS(angle)
+  y=SIN(angle)
+  PRINT AT(28,2);"Angle in degrees: ";i%
+  PRINT AT(25,4);"Radians: ";angle
+  PRINT AT(27,6);"SIN: ";y
+  PRINT AT(27,8);"COS: ";x
+  i%=i%+1
+LOOP

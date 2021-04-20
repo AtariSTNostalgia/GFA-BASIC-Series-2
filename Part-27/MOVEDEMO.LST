@@ -1,0 +1,167 @@
+@setarrays
+@makelogo
+@maketext
+@canvas
+' @movetext
+' @movelogo
+' @move_combo
+@setvalues
+@bounce
+EDIT
+'
+' *** Procedures ***
+'
+> PROCEDURE makelogo
+  CLS
+  PBOX 115,8,228,39
+  GRAPHMODE 3
+  DEFTEXT 1,0,0,32
+  TEXT 100,36," ASN "
+  GRAPHMODE 1
+  GET 107,0,236,47,logo$
+RETURN
+> PROCEDURE maketext
+  CLS
+  DEFTEXT 1,0,0,12
+  TEXT 0,14,"     ATARI ST NOSTALGIA     "
+  GET 0,0,639,16,text$
+  CLS
+  TEXT 0,14," This is a simple GET/PUT routine "
+  GET 0,0,639,16,text2$
+  CLS
+  TEXT 0,14," For an easy way of moving stuff around "
+  GET 0,0,639,16,text3$
+  CLS
+RETURN
+> PROCEDURE canvas
+  CLS
+  DEFFILL 1,4,0
+  PBOX 0,0,639,370
+  DEFFILL 1,1,0
+  PBOX 0,360,639,370
+  PBOX 0,390,639,399
+  DEFFILL 1,0,0
+  PBOX 120,29,520,329
+  BOX 160,49,480,160
+  DEFTEXT 1,0,0,4
+  TEXT 240,80,"THIS IS MY SAD ATTEMPT AT"
+  TEXT 270,105,"MAKING A SCREEN"
+  TEXT 236,130,"WITH SOME MOVEMENT ON IT..."
+  SGET canvas$
+RETURN
+> PROCEDURE movetext
+  SPUT canvas$
+  FOR x&=720 TO -720 STEP -4
+    VSYNC
+    PUT x&,372,text$
+  NEXT x&
+  FOR x&=720 TO -720 STEP -4
+    VSYNC
+    PUT x&,372,text2$
+  NEXT x&
+  FOR x&=720 TO -720 STEP -4
+    VSYNC
+    PUT x&,372,text3$
+  NEXT x&
+RETURN
+> PROCEDURE movelogo
+  SPUT canvas$
+  FOR x&=720 TO -720 STEP -2
+    VSYNC
+    PUT 256+134*SINQ(x& DIV 4),235-45*COSQ(x&),logo$
+  NEXT x&
+RETURN
+> PROCEDURE move_combo
+  SPUT canvas$
+  '  DO UNTIL ASC(INKEY$)=32
+  FOR x&=720 TO -720 STEP -4
+    VSYNC
+    PUT 256+134*SINQ(x& DIV 4),235-45*COSQ(x&),logo$
+    VSYNC
+    PUT x&,372,text$
+  NEXT x&
+  FOR x&=720 TO -720 STEP -4
+    VSYNC
+    PUT 256+134*SINQ(x& DIV 4),235-45*COSQ(x&),logo$
+    VSYNC
+    PUT x&,372,text2$
+  NEXT x&
+  FOR x&=720 TO -720 STEP -4
+    VSYNC
+    PUT 256+134*SINQ(x& DIV 4),235-45*COSQ(x&),logo$
+    VSYNC
+    PUT x&,372,text3$
+  NEXT x&
+  ' LOOP
+RETURN
+> PROCEDURE setarrays
+  ' *** Declare 4 arrays that start at 1 instead of 0 ***
+  OPTION BASE 1
+  DIM oldx1&(64)
+  DIM oldy1&(64)
+  DIM oldx2&(64)
+  DIM oldy2&(64)
+RETURN
+> PROCEDURE setvalues
+  x1&=150
+  y1&=50
+  x2&=250
+  y2&=250
+  drx1&=6
+  dry1&=6
+  drx2&=-6
+  dry2&=-6
+  xput&=720
+  '
+  '
+  ' *** Fill array with 700 ***
+  ARRAYFILL oldx1&(),700
+  ARRAYFILL oldy1&(),700
+  ARRAYFILL oldx2&(),700
+  ARRAYFILL oldy2&(),700
+RETURN
+> PROCEDURE bounce
+  GRAPHMODE 1
+  DEFFILL 0,0,0
+  FOR box&=0 TO 140 STEP 7
+    PBOX 125,180-box&,515,180+box&
+  NEXT box&
+  DO UNTIL ASC(INKEY$)=32
+    VSYNC
+    PUT xput&,372,text$
+    SUB xput&,3
+    IF x1&>520 OR x1&<120
+      MUL drx1&,-1
+      ADD x1&,2*drx1&
+    ENDIF
+    IF y1&>329 OR y1&<29
+      MUL dry1&,-1
+      ADD y1&,2*dry1&
+    ENDIF
+    IF x2&>520 OR x2&<120
+      MUL drx2&,-1
+      ADD x2&,2*drx2&
+    ENDIF
+    IF y2&>329 OR y2&<29
+      MUL dry2&,-1
+      ADD y2&,2*dry2&
+    ENDIF
+    IF xput&<=-720
+      xput&=720
+    ENDIF
+    VSYNC
+    COLOR 1
+    LINE x1&,y1&,x2&,y2&
+    ' *** Insert coordinates in arrays  ***
+    INSERT oldx1&(1)=x1&
+    INSERT oldy1&(1)=y1&
+    INSERT oldx2&(1)=x2&
+    INSERT oldy2&(1)=y2&
+    COLOR 0
+    LINE oldx1&(64),oldy1&(64),oldx2&(64),oldy2&(64)
+    ADD x1&,drx1&
+    ADD y1&,dry1&
+    ADD x2&,drx2&
+    ADD y2&,dry2&
+  LOOP
+RETURN

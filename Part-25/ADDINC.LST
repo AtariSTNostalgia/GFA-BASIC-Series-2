@@ -1,0 +1,152 @@
+'
+' This code demonstrates the performance difference when using the
+' built-in mathematical functions of GFA BASIC.
+'
+' Use INC x%    instead of x%=x%+1
+' Use DEC x%    instead of x%=x%-1
+' Use ADD x%,5  instead of x%=X%+5
+' Use MUL x%,2  instead of x%=x%*2
+' Use DIV x%,2  instead of x%=x%/2
+'
+'
+'
+' *** Measure empty FOR..NEXT loop ***
+PRINT AT(24,1);"Measurement: Emtpy FOR..NEXT loop"
+x%=0
+time%=TIMER
+FOR i%=0 TO 9999
+NEXT i%
+basetime=(TIMER-time%)/200
+PRINT AT(31,3);"Time: ";basetime
+~INP(2)
+'
+' *** Measure x%=x%+1 ***
+CLS
+PRINT AT(24,1);"Measurement: x%=x%+1"
+x%=0
+time%=TIMER
+FOR i%=0 TO 9999
+  x%=x%+1
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure INC x% ***
+CLS
+PRINT AT(24,1);"Measurement: INC x%"
+x%=0
+time%=TIMER
+FOR i%=0 TO 9999
+  INC x%
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure x%=x%-1 ***
+CLS
+PRINT AT(24,1);"Measurement: x%=x%-1"
+x%=0
+time%=TIMER
+FOR i%=0 TO 9999
+  x%=x%-1
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure DEC x% ***
+CLS
+PRINT AT(24,1);"Measurement: DEC x%"
+x%=0
+time%=TIMER
+FOR i%=0 TO 9999
+  DEC x%
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure x%=x%+5 ***
+CLS
+PRINT AT(24,1);"Measurement: x%=x%+5"
+x%=0
+time%=TIMER
+FOR i%=0 TO 9999
+  x%=x%+5
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure ADD x%,5 ***
+CLS
+PRINT AT(24,1);"Measurement: ADD x%,5"
+x%=0
+time%=TIMER
+FOR i%=0 TO 9999
+  ADD x%,5
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure x%=x%*1.01 ***
+CLS
+PRINT AT(24,1);"Measurement: x%=x%*1.01"
+x%=1
+time%=TIMER
+FOR i%=0 TO 9999
+  x%=x%*1.01
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure MUL x%,1.01 ***
+CLS
+PRINT AT(24,1);"Measurement: MUL x%,1.01"
+x%=1
+time%=TIMER
+FOR i%=0 TO 9999
+  MUL x%,1.01
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure x%=x%/2 ***
+CLS
+PRINT AT(24,1);"Measurement: x%=x%/2"
+x%=10000
+time%=TIMER
+FOR i%=0 TO 9999
+  x%=x%/2
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+'
+' *** Measure DIV x%,2 ***
+CLS
+PRINT AT(24,1);"Measurement: DIV x%,2"
+x%=10000
+time%=TIMER
+FOR i%=0 TO 9999
+  DIV x%,2
+NEXT i%
+seconds=(TIMER-time%)/200
+PRINT AT(25,3);"Total time: ";seconds
+PRINT AT(27,5);"Net time: ";seconds-basetime
+~INP(2)
+EDIT

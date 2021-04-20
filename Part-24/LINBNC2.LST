@@ -1,0 +1,85 @@
+'
+' *** Main code ***
+'
+@main
+'
+' *** Procedures ***
+'
+PROCEDURE main
+  @setvalues
+  @background
+  @bounce
+RETURN
+PROCEDURE setvalues
+  CLS
+  INPUT "Enter desired border size: ",b&
+  xmin&=b&
+  ymin&=b&
+  xmax&=639-b&
+  ymax&=399-b&
+  x1&=b&+RANDOM(639-2*b&)
+  y1&=b&+RANDOM(399-2*b&)
+  x2&=b&+RANDOM(639-2*b&)
+  y2&=b&+RANDOM(399-2*b&)
+  drx1&=5
+  dry1&=5
+  drx2&=-5
+  dry2&=-5
+  x1old&=700
+  y1old&=700
+  x2old&=700
+  y2old&=700
+  CLS
+RETURN
+PROCEDURE background
+  DEFFILL 1,4,0
+  PBOX 0,0,639,399
+  DEFFILL 1,0,0
+  PBOX b&-1,b&-1,640-b&,400-b&
+RETURN
+PROCEDURE bounce
+  GRAPHMODE 1
+  DO UNTIL ASC(INKEY$)=32
+    WHILE x1&<=xmax& AND x2&<=xmax& AND x1&>=xmin& AND x2&>=xmin& AND y1&<=ymax& AND y2&<=ymax& AND y1&>=ymin& AND y2&>=ymin&
+      COLOR 1
+      LINE x1&,y1&,x2&,y2&
+      PAUSE 10
+      COLOR 0
+      LINE x1old&,y1old&,x2old&,y2old&
+      x1old&=x1&
+      y1old&=y1&
+      x2old&=x2&
+      y2old&=y2&
+      ADD x1&,drx1&
+      ADD y1&,dry1&
+      ADD x2&,drx2&
+      ADD y2&,dry2&
+    WEND
+    IF x1&>xmax& OR x1&<xmin&
+      MUL drx1&,-1
+      ADD x1&,2*drx1&
+    ENDIF
+    IF y1&>ymax& OR y1&<ymin&
+      MUL dry1&,-1
+      ADD y1&,2*dry1&
+    ENDIF
+    IF x2&>xmax& OR x2&<xmin&
+      MUL drx2&,-1
+      ADD x2&,2*drx2&
+    ENDIF
+    IF y2&>ymax& OR y2&<ymin&
+      MUL dry2&,-1
+      ADD y2&,2*dry2&
+    ENDIF
+  LOOP
+  @quit
+RETURN
+PROCEDURE quit
+  ALERT 3,"|     Stop or go again?     ",1,"Stop|Go again",quit|
+  SELECT quit|
+  CASE 1
+    END
+  CASE 2
+    @main
+  ENDSELECT
+RETURN

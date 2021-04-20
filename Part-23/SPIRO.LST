@@ -1,0 +1,57 @@
+' *** Main execution ***
+'
+@setvalues
+'
+'
+' *** Procedures ***
+'
+PROCEDURE setvalues
+  i=0
+  CLS
+  INPUT "Radius of outer template circle";rb&
+  INPUT "radius of inner wheel";rs&
+  INPUT "Pen position from centre of inner wheel";pen&
+  '  rb&=150            ! Set radius of big circle
+  '  rs&=50             ! Set radius of small circle (between half rb and rb)
+  '  pen&=50              ! Position of the pen.
+  CLS
+  @rosettes
+RETURN
+PROCEDURE rosettes
+  height=rb&-rs&
+  ratio=rs&/rb&
+  '
+  '
+  ' ***  Calculate start position  ***
+  '
+  t=i*PI/180
+  firstx&=height*COS(ratio*t)+pen&*COS((1-ratio)*t)
+  firsty&=height*SIN(ratio*t)-pen&*SIN((1-ratio)*t)
+  firstxplot&=320+firstx&
+  firstyplot&=200-firsty&
+  '
+  DO UNTIL ASC(INKEY$)=32
+    '
+    ' *** Check and end if plot is back at start position ***
+    '
+    IF i>359 AND xplot&=firstxplot& AND yplot&=firstyplot&
+      PRINT AT(6,2);"!FINISHED!"
+      PRINT AT(65,2);"!FINISHED!"
+      PRINT AT(6,24);"!FINISHED!"
+      PRINT AT(65,24);"!FINISHED!"
+      VOID INP(2)
+      @setvalues
+    ENDIF
+    '
+    ' ***  Calculate and plot ***
+    '
+    t=i*PI/180
+    x&=height*COS(ratio*t)+pen&*COS((1-ratio)*t)
+    y&=height*SIN(ratio*t)-pen&*SIN((1-ratio)*t)
+    xplot&=320+x&
+    yplot&=200-y&
+    PLOT xplot&,yplot&
+    INC i
+  LOOP
+  @setvalues
+RETURN

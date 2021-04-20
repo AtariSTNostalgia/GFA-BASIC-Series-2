@@ -1,0 +1,69 @@
+'
+' *** Preperation procedures ***
+'
+start:
+CLS
+@setvalues
+@drawbackground
+'
+' *** Main execution ***
+'
+@plotformula
+VOID INP(2)
+ALERT 2,"Go again?",1,"Yes|No",again|
+SELECT again|
+CASE 1
+  GOTO start
+CASE 2
+  EDIT
+ENDSELECT
+'
+' *** Procedures ***
+'
+> PROCEDURE setvalues
+  ' ** set scale **
+  xscale=1
+  yscale=1
+  '
+  ' ** User input for cannon **
+  INPUT "Height of cannon (m): ",h&
+  INPUT "Firing angle (deg): ",angle&
+  INPUT "Firing speed (km/h): ",kmh&
+  '
+  ' ** Calculate constants outside of loops **
+  speed=kmh&/3.6
+  radangle=angle&*PI/180
+  b=TAN(radangle)                       ! Needed as constants for
+  a=(9.81/(2*(speed^2)))*(b^2+1)        ! parabolic trajectory formula
+RETURN
+> PROCEDURE drawbackground
+  CLS
+  LINE 20,380,620,380
+  LINE 20,10,20,380
+  FOR d|=1 TO 7
+    LINE 20+100*d|,380,20+100*d|,385
+  NEXT d|
+  FOR h|=1 TO 4
+    LINE 15,380-100*h|,20,380-100*h|
+  NEXT h|
+  DEFTEXT 1,0,0,4
+  TEXT 500,396,"Distance"
+  DEFTEXT 1,0,900,4
+  TEXT 6,100,"Height"
+  PRINT AT(40,2);"Press any key to fire te cannon."
+  VOID INP(2)
+  PRINT AT(40,2);"                                "
+RETURN
+> PROCEDURE plotformula
+  x&=0
+  y=0
+  DO
+    INC x&
+    xplot&=20+x&*xscale
+    y=h&+b*x&-a*x&^2
+    EXIT IF y<0
+    yplot&=380-y*yscale
+    PRINT AT(50,2);"Distance: ";x&;"m"
+    PLOT xplot&,yplot&
+  LOOP
+RETURN

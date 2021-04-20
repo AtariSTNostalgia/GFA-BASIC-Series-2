@@ -1,0 +1,36 @@
+'
+' **** Set values ****
+'
+rmax&=180       ! Maximum orbit radius
+xspeed=1        ! Speed factor on X axis
+yspeed=1        ! Speed factor on Y axis
+anglestep=1     ! Default is 1. Increase for faster angle increments.
+elfactor=1      ! 1 creates a circle. >1 stretches horizontal
+'
+' **** Set angle and radius, then calculate plot coordinates ****
+'
+DO UNTIL ASC(INKEY$)=32
+  FOR i=-360 TO 360 STEP anglestep
+    @calcxy
+    xplot&=320+x&
+    yplot&=200-y&
+    PLOT xplot&,yplot&
+  NEXT i
+  FOR i=-360 TO 360 STEP anglestep
+    @calcxy
+    xplot&=320-x&
+    yplot&=200+y&
+    PLOT xplot&,yplot&
+  NEXT i
+LOOP
+EDIT
+'
+' **** Procedures ****
+'
+PROCEDURE calcxy
+  '  radius&=(360-ABS(i))/360*rmax&
+  radius&=rmax&
+  angle=i*PI/180
+  x&=radius&*elfactor*COS(angle*xspeed)
+  y&=radius&*SIN(angle*yspeed)
+RETURN

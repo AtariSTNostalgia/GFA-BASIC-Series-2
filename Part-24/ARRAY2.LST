@@ -1,0 +1,39 @@
+'
+' *** Declare 4 arrays that start at 1 instead of 0 ***
+OPTION BASE 1
+DIM oldx1&(10)
+DIM oldy1&(10)
+DIM oldx2&(10)
+DIM oldy2&(10)
+'
+' *** Show empty arrays ***
+PRINT AT(5,1);"POS","X1","Y1","X2","Y2"
+FOR hist&=1 TO 10
+  PRINT AT(5,hist&+2);hist&,oldx1&,oldy1&,oldx2&,oldy2&
+NEXT hist&
+~INP(2)
+'
+' *** Fill array with 777 ***
+ARRAYFILL oldx1&(),777
+ARRAYFILL oldy1&(),777
+ARRAYFILL oldx2&(),777
+ARRAYFILL oldy2&(),777
+PRINT AT(5,1);"POS","X1","Y1","X2","Y2"
+FOR hist&=1 TO 10
+  PRINT AT(5,hist&+2);hist&,oldx1&(hist&),oldy1&(hist&),oldx2&(hist&),oldy2&(hist&)
+NEXT hist&
+~INP(2)
+'
+' *** Insert coordinates in arrays  ***
+FOR i&=1 TO 10
+  INSERT oldx1&(1)=i&
+  INSERT oldy1&(1)=2*i&
+  INSERT oldx2&(1)=i&+10
+  INSERT oldy2&(1)=2*i&+20
+  CLS
+  PRINT AT(5,1);"POS","X1","Y1","X2","Y2"
+  FOR hist&=1 TO 10
+    PRINT AT(5,hist&+2);hist&,oldx1&(hist&),oldy1&(hist&),oldx2&(hist&),oldy2&(hist&)
+  NEXT hist&
+  ~INP(2)
+NEXT i&

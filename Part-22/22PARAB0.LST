@@ -1,0 +1,14 @@
+' ** Draw axle assembly **
+LINE 20,200,620,200
+LINE 320,30,320,370
+DEFTEXT 1,0,0,4
+TEXT 500,206,"X-AXIS"
+DEFTEXT 1,0,900,4
+TEXT 318,100,"Y-AXIS"
+VOID INP(2)
+'
+FOR x=-30 TO 30 STEP 0.1   !  Get values for x-axis
+  y=x^2-180                !  Calculate Y with formula
+  PLOT x,y                 !  Now plot it on screen :)
+NEXT x
+VOID INP(2)

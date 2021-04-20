@@ -1,0 +1,31 @@
+' **** Explanation ****
+'
+' There are different VAR types for numbers:
+' VAR  = default set in GFA (Float)
+' VAR! = Boolean. 1 bit, only 1 or 0
+' VAR| = Byte.  1 byte, 8 bit numeric value
+' VAR& = Word.  2 bytes, 16 bit numeric value
+' VAR% = Long.  4 bytes, 32 bit numeric value
+' VAR# = Float. 8 bytes, 64 bit numeric value. GFA Default
+'
+'
+' **** Get input ****
+'
+PRINT ""
+INPUT "What is te value for X";x
+PRINT ""
+INPUT "What is the value for Y";y
+CLS
+'
+' **** Calculate and print results ****
+'
+PRINT AT(20,6);"For X you chose:",x
+PRINT AT(20,7);"For Y you chose:",y
+PAUSE 75
+div=x/y
+PRINT AT(20,9);"X divided by Y equals:",div
+PAUSE 75
+prod=x*y
+PRINT AT(20,10);"X times Y equals:",prod
+VOID INP(2)
+RUN

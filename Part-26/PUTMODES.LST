@@ -1,0 +1,36 @@
+' *** Draw and get the circles ***
+'
+PCIRCLE 40,40,40
+GET 0,0,80,80,circle0$
+DEFTEXT 0,0,0,26
+GRAPHMODE 2
+TEXT 10,52,"ST"
+GRAPHMODE 1
+GET 0,0,80,80,circle$
+'
+' *** Create background ***
+'
+CLS
+PBOX 0,0,180,399
+DEFFILL 1,4,0
+PBOX 460,0,639,399
+SGET background$
+'
+' *** Cycle through modes ***
+'
+FOR mode|=0 TO 15
+  SPUT background$
+  PUT 0,100,circle0$,mode|
+  PUT 140,100,circle0$,mode|
+  PUT 280,100,circle0$,mode|
+  PUT 420,100,circle0$,mode|
+  PUT 560,100,circle0$,mode|
+  PUT 0,200,circle$,mode|
+  PUT 140,200,circle$,mode|
+  PUT 280,200,circle$,mode|
+  PUT 420,200,circle$,mode|
+  PUT 560,200,circle$,mode|
+  PRINT AT(36,5);"Mode: ";mode|
+  ~INP(2)
+NEXT mode|
+EDIT

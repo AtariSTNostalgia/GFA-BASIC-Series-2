@@ -1,0 +1,34 @@
+'
+' *** Preperation procedures ***
+'
+@setvalues
+@drawbackground
+VOID INP(2)
+'
+' *** Main execution ***
+'
+FOR x=-30 TO 30 STEP 0.05
+  @plotformula
+NEXT x
+VOID INP(2)
+'
+' *** Procedures ***
+'
+> PROCEDURE setvalues
+  xscale=10
+  yscale=1
+RETURN
+> PROCEDURE drawbackground
+  LINE 20,200,620,200
+  LINE 320,30,320,370
+  DEFTEXT 1,0,0,4
+  TEXT 500,206,"X-value"
+  DEFTEXT 1,0,900,4
+  TEXT 316,100,"Y-value"
+RETURN
+> PROCEDURE plotformula
+  xplot=320+x*xscale
+  y=x^2-180
+  yplot=200-y*yscale
+  PLOT xplot,yplot
+RETURN

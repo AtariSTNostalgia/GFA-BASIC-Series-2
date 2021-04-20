@@ -1,0 +1,11 @@
+FOR i=1 TO 360
+  radius&=180
+  angle=i*PI/180
+  x&=radius&*COS(angle)
+  y&=radius&*SIN(angle)
+  xplot&=320+x&
+  yplot&=200-y&
+  PLOT xplot&,yplot&
+NEXT i
+VOID INP(2)
+EDIT

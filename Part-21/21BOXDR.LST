@@ -1,0 +1,52 @@
+' *******************************************************************
+' ***                         MAIN CODE                           ***
+' *** Starts first procedure, further logic handled in procedures ***
+' *******************************************************************
+'
+@startofbox
+'
+' *** Procedures ***
+'
+> PROCEDURE waitbutton0
+  REPEAT
+    MOUSE x&,y&,button&
+  UNTIL button&=0
+RETURN
+> PROCEDURE startofbox
+  @waitbutton0
+  DEFMOUSE 7
+  DO
+    MOUSE oldx&,oldy&,button&
+    SELECT button&
+    CASE 1
+      @previewbox
+    CASE 2
+      EDIT
+    ENDSELECT
+  LOOP
+RETURN
+PROCEDURE previewbox
+  @waitbutton0
+  DEFMOUSE 5
+  DO
+    MOUSE newx&,newy&,button&
+    SELECT button&
+    CASE 1
+      @drawbox
+    CASE 2
+      @startofbox
+    ENDSELECT
+    GRAPHMODE 3
+    BOX oldx&,oldy&,newx&,newy&
+    SHOWM
+    PAUSE 1
+    BOX oldx&,oldy&,newx&,newy&
+  LOOP
+RETURN
+> PROCEDURE drawbox
+  @waitbutton0
+  GRAPHMODE 1
+  COLOR 1
+  BOX oldx&,oldy&,newx&,newy&
+  @startofbox
+RETURN

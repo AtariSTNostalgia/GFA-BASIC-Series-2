@@ -1,0 +1,35 @@
+'
+' *** main program ***
+'
+@makeball
+@drawball
+@putball
+EDIT
+'
+' *** procedures ***
+'
+> PROCEDURE drawball
+  REPEAT
+    FOR draw&=-74 TO 676 STEP 10
+      PCIRCLE draw&,200,24
+      CLS
+    NEXT draw&
+  UNTIL ASC(INKEY$)=32
+RETURN
+> PROCEDURE makeball
+  PCIRCLE 50,50,24
+  GRAPHMODE 2
+  DEFTEXT 0,0,0,26
+  TEXT 34,60,""
+  GET 20,20,80,80,ball$
+  GRAPHMODE 1
+  CLS
+RETURN
+> PROCEDURE putball
+  CLS
+  REPEAT
+    FOR xput&=-50 TO 700 STEP 1
+      PUT xput&,176,ball$
+    NEXT xput&
+  UNTIL ASC(INKEY$)=32
+RETURN

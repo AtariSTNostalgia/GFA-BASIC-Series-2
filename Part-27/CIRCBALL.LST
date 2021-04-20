@@ -1,0 +1,96 @@
+'
+' *** main program ***
+'
+@setvalues
+@makeball
+@canvas
+@plotball
+@loopscreen
+EDIT
+'
+' *** procedures ***
+'
+> PROCEDURE setvalues
+  DIM loopscreen$(19)
+  mode|=7
+RETURN
+> PROCEDURE plotball
+  CLS
+  i&=0
+  '
+  DO UNTIL i&=60
+    '
+    ' ***  Calculate and plot ***
+    '
+    SPUT canvas$
+    ' BALL1
+    x&=160*COSQ(i&)
+    y&=160*SINQ(i&)
+    xplot&=240+x&
+    yplot&=120-y&
+    PUT xplot&,yplot&,ball$,mode|
+    '
+    ' BALL2
+    x&=160*COSQ(i&+60)
+    y&=160*SINQ(i&+60)
+    xplot&=240+x&
+    yplot&=120-y&
+    PUT xplot&,yplot&,ball$,mode|
+    '
+    ' BALL3
+    x&=160*COSQ(i&+120)
+    y&=160*SINQ(i&+120)
+    xplot&=240+x&
+    yplot&=120-y&
+    PUT xplot&,yplot&,ball$,mode|
+    '
+    ' BALL4
+    x&=160*COSQ(i&+180)
+    y&=160*SINQ(i&+180)
+    xplot&=240+x&
+    yplot&=120-y&
+    PUT xplot&,yplot&,ball$,mode|
+    '
+    ' BALL5
+    x&=160*COSQ(i&+240)
+    y&=160*SINQ(i&+240)
+    xplot&=240+x&
+    yplot&=120-y&
+    PUT xplot&,yplot&,ball$,mode|
+    '
+    ' BALL6
+    x&=160*COSQ(i&+300)
+    y&=160*SINQ(i&+300)
+    xplot&=240+x&
+    yplot&=120-y&
+    PUT xplot&,yplot&,ball$,mode|
+    '
+    SGET loopscreen$(i&/3)
+    ADD i&,3
+  LOOP
+RETURN
+> PROCEDURE makeball
+  PCIRCLE 340,80,80
+  DEFFILL 1,0,0
+  PBOX 280,50,400,110
+  GET 260,0,420,160,ball$
+  CLS
+RETURN
+> PROCEDURE canvas
+  CLS
+  GRAPHMODE 1
+  DEFFILL 1,4,0
+  PBOX 0,0,639,399
+  DEFFILL 1,0,0
+  PBOX 120,20,520,60
+  DEFTEXT 1,0,0,26
+  TEXT 130,52," ATARI ST NOSTALGIA "
+  SGET canvas$
+RETURN
+> PROCEDURE loopscreen
+  REPEAT
+    FOR i&=0 TO 19
+      SPUT loopscreen$(i&)
+    NEXT i&
+  UNTIL ASC(INKEY$)=32
+RETURN

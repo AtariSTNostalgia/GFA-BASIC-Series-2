@@ -1,0 +1,63 @@
+' *** Dimension the array ***
+DIM x&(9)
+'
+' *** Show values in th new array ***
+FOR show&=0 TO 9
+  PRINT AT(30,show&+5);show&,x&(show&)
+NEXT show&
+PRINT AT(28,1);"Show values in new array"
+~INP(2)
+'
+' *** Write values 1 to 10 at positions 0 to 9 ***
+FOR a&=0 TO 9
+  x&(a&)=a&+1          ! In the array, at position a, write the value a+1
+  CLS
+  FOR show&=0 TO 9
+    PRINT AT(30,show&+5);show&,x&(show&)
+  NEXT show&
+  PRINT AT(28,1);" Write positions 0 to 9 "
+  ~INP(2)
+NEXT a&
+'
+' *** Write random numbers on positions 9 back to 0 ***
+FOR b&=9 DOWNTO 0
+  x&(b&)=100+RANDOM(100)
+  CLS
+  FOR show&=0 TO 9
+    PRINT AT(30,show&+5);show&,x&(show&)
+  NEXT show&
+  PRINT AT(28,1);" Write positions 9 to 0 "
+  ~INP(2)
+NEXT b&
+'
+' *** Insert random number at array position 5
+FOR i&=0 TO 9
+  INSERT x&(4)=999
+  CLS
+  FOR show&=0 TO 9
+    PRINT AT(30,show&+5);show&,x&(show&)
+  NEXT show&
+  PRINT AT(28,1);"  Insert at position 4  "
+  ~INP(2)
+NEXT i&
+'
+' *** Delete item in array at position 1 ***
+FOR i&=0 TO 9
+  DELETE x&(1)
+  CLS
+  FOR show&=0 TO 9
+    PRINT AT(30,show&+5);show&,x&(show&)
+  NEXT show&
+  PRINT AT(28,1);" Delete from position 1 "
+  ~INP(2)
+NEXT i&
+'
+' *** Fill array with 777 ***
+ARRAYFILL x&(),777
+CLS
+FOR show&=0 TO 9
+  PRINT AT(30,show&+5);show&,x&(show&)
+NEXT show&
+PRINT AT(28,1);"     Fill with 777      "
+~INP(2)
+EDIT
